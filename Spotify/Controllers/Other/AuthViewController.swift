@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class AuthViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
+class AuthViewController: UIViewController, WKNavigationDelegate {
     
     private let webView: WKWebView = {
         let prefs = WKWebpagePreferences()
@@ -56,7 +56,13 @@ class AuthViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         guard let code = companent?.queryItems?.first(where: {$0.name == "code" })?.value else {
             return
         }
-        
+        webView.isHidden = true
+        AuthManager.shared.exchangeCodeForToken(code: code, complation: { [weak self] success in
+            DispatchQueue.main.async {
+                self?.navigationController?.popToRootViewController(animated: true)
+                self?.completionHandler?(success)
+            }
+        })
     }
 
 }

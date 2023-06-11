@@ -31,6 +31,7 @@
 		8243AB2F2A34E7FE00DA8595 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243AB2E2A34E7FE00DA8595 /* UserProfile.swift */; };
 		8243AB312A350B1900DA8595 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243AB302A350B1900DA8595 /* Constant.swift */; };
 		8243AB332A350FAD00DA8595 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243AB322A350FAD00DA8595 /* Extension.swift */; };
+		82AB366D2A35C285000E538C /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AB366C2A35C285000E538C /* AuthResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		8243AB2E2A34E7FE00DA8595 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		8243AB302A350B1900DA8595 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		8243AB322A350FAD00DA8595 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		82AB366C2A35C285000E538C /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				8243AB2A2A34E7E600DA8595 /* AudioTrack.swift */,
 				8243AB2C2A34E7F300DA8595 /* Artists.swift */,
 				8243AB2E2A34E7FE00DA8595 /* UserProfile.swift */,
+				82AB366C2A35C285000E538C /* AuthResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				8243AB1F2A34E72300DA8595 /* LibraryViewController.swift in Sources */,
 				8243AB212A34E76D00DA8595 /* SearchResultViewController.swift in Sources */,
 				8243AB252A34E7A300DA8595 /* APICaller.swift in Sources */,
+				82AB366D2A35C285000E538C /* AuthResponse.swift in Sources */,
 				8243AB0C2A34E06300DA8595 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
