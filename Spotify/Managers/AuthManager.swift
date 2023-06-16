@@ -105,9 +105,9 @@ final class AuthManager {
         }
     }
     
-    public func refreshIfNeeded(complation: @escaping (Bool) -> Void) {
+    public func refreshIfNeeded(complation: ((Bool) -> Void)?) {
         guard !refreshingToken else { return }
-        guard shouldRefreshToken else {complation(true);return}
+        guard shouldRefreshToken else {complation?(true);return}
         guard let refresToken = self.refresToken else {return}
         guard let url = URL(string: Constant.tokenAPIURL) else {return}
         refreshingToken = true;
@@ -126,7 +126,7 @@ final class AuthManager {
         let basicToken = Constant.clientID + ":" + Constant.clientSecret
         let data = basicToken.data(using: .utf8)
         guard let base64String = data?.base64EncodedString() else {
-            complation(false)
+            complation?(false)
             return}
         
         request.setValue("Basic \(base64String)", forHTTPHeaderField: "Authorization")
@@ -134,17 +134,17 @@ final class AuthManager {
         let task =  URLSession.shared.dataTask(with: request){ [weak self] data, _, error in
             self?.refreshingToken = false
             guard let data = data, error == nil else {
-                complation(false)
+                complation?(false)
                 return
             }
             do {
                 let json = try JSONDecoder().decode(AuthResponse.self, from: data)
                 self?.onRefreshBlocks.forEach{ $0(json.access_token)}
                 self?.cacheToken(result: json)
-                complation(true)
+                complation?(true)
             }catch{
                 print(error.localizedDescription)
-                complation(false)
+                complation?(false)
             }
         }
         task.resume()
