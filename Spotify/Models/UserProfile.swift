@@ -20,11 +20,6 @@ struct UserProfile: Codable {
     let product: String
   //  let uri: String
   //  let type: String
-    let images: [UserImage]
+    let images: [APIImage]
 }
 
-struct UserImage: Codable {
-    //let height: String
-    let url: String
-    //let width: String
-}

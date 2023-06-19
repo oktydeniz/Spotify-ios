@@ -54,4 +54,75 @@ final class APICaller {
         }
     }
     
+    public func getNewReleases(complation: @escaping((Result<NewReleasesResponse, Error>)) -> Void) {
+        createRequest(with: URL(string: Constant.baseAPIURL + "/browse/new-releases?limit=50"), type: .GET, complation: { req in
+            let task = URLSession.shared.dataTask(with: req, completionHandler: { data, _ , error in
+                guard let data = data, error == nil else {
+                    complation(.failure(APIERROR.faileedToGetData))
+                    return}
+                
+                do {
+                    let json = try JSONDecoder().decode(NewReleasesResponse.self, from: data)
+                    complation(.success(json))
+                    
+                } catch {
+                    complation(.failure(error))
+                }
+                
+            })
+            task.resume()
+        })
+        
+    }
+    
+    public func getFeaturedPlaylists(complation: @escaping((Result<FeaturedPlaylistResponse, Error>))-> Void){
+        createRequest(with: URL(string: Constant.baseAPIURL + "/browse/featured-playlists"), type: .GET, complation:{ req in
+            let task = URLSession.shared.dataTask(with: req, completionHandler: { response, _ , error in
+                guard let data = response, error == nil else {return}
+                do {
+                    let json = try JSONDecoder().decode(FeaturedPlaylistResponse.self, from: data)
+                    print(json)
+                    complation(.success(json))
+                } catch {
+                    complation(.failure(error))
+                }
+                
+            })
+            task.resume()
+        })
+        
+    }
+    
+    public func getRecommendationsGenres(complation: @escaping((Result<RecommendedGenresResponse, Error>))-> Void){
+        createRequest(with: URL(string: Constant.baseAPIURL + "/recommendations/available-genre-seeds"), type: .GET, complation:{ req in
+            let task = URLSession.shared.dataTask(with: req, completionHandler: { response, _ , error in
+                guard let data = response, error == nil else {return}
+                do {
+                    let json = try JSONDecoder().decode(RecommendedGenresResponse.self, from: data)
+                    print(json)
+                    complation(.success(json))
+                } catch {
+                    complation(.failure(error))
+                }
+            })
+            task.resume()
+        })
+    }
+    
+    public func getRecommendations(genres: Set<String>, complation: @escaping((Result<RecommendationsResponse, Error>))-> Void){
+        let seeds = genres.joined(separator: ",")
+        createRequest(with: URL(string: Constant.baseAPIURL + "/recommendations?limit=40&seed_genres=\(seeds)"), type: .GET, complation:{ req in
+            let task = URLSession.shared.dataTask(with: req, completionHandler: { response, _ , error in
+                guard let data = response, error == nil else {return}
+                do {
+                    let json = try JSONDecoder().decode(RecommendationsResponse.self, from: data)
+                    print(json)
+                    complation(.success(json))
+                } catch {
+                    complation(.failure(error))
+                }
+            })
+            task.resume()
+        })
+    }
 }
