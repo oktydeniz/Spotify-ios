@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82089F772A4DB20100B12F05 /* NewReleasesCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82089F762A4DB20100B12F05 /* NewReleasesCellViewModel.swift */; };
+		82089F792A4DC41100B12F05 /* FeaturedPlaylistCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82089F782A4DC41100B12F05 /* FeaturedPlaylistCellViewModel.swift */; };
+		82089F7B2A4DC47B00B12F05 /* RecomendedTrackCellVİewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82089F7A2A4DC47B00B12F05 /* RecomendedTrackCellVİewModel.swift */; };
 		821C01952A40B69700AF1DC6 /* NewReleasesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821C01942A40B69700AF1DC6 /* NewReleasesResponse.swift */; };
 		821C01972A40B7D600AF1DC6 /* APIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821C01962A40B7D600AF1DC6 /* APIImage.swift */; };
 		821C01992A40BD0000AF1DC6 /* FeaturedPlaylistResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821C01982A40BD0000AF1DC6 /* FeaturedPlaylistResponse.swift */; };
@@ -46,6 +49,9 @@
 
 /* Begin PBXFileReference section */
 		19306F40ACB014D2D182BC9D /* Pods_Spotify.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spotify.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		82089F762A4DB20100B12F05 /* NewReleasesCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesCellViewModel.swift; sourceTree = "<group>"; };
+		82089F782A4DC41100B12F05 /* FeaturedPlaylistCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlaylistCellViewModel.swift; sourceTree = "<group>"; };
+		82089F7A2A4DC47B00B12F05 /* RecomendedTrackCellVİewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecomendedTrackCellVİewModel.swift"; sourceTree = "<group>"; };
 		821C01942A40B69700AF1DC6 /* NewReleasesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesResponse.swift; sourceTree = "<group>"; };
 		821C01962A40B7D600AF1DC6 /* APIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIImage.swift; sourceTree = "<group>"; };
 		821C01982A40BD0000AF1DC6 /* FeaturedPlaylistResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlaylistResponse.swift; sourceTree = "<group>"; };
@@ -233,6 +239,9 @@
 		8243AB062A34DFAB00DA8595 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				82089F762A4DB20100B12F05 /* NewReleasesCellViewModel.swift */,
+				82089F782A4DC41100B12F05 /* FeaturedPlaylistCellViewModel.swift */,
+				82089F7A2A4DC47B00B12F05 /* RecomendedTrackCellVİewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -361,9 +370,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82089F772A4DB20100B12F05 /* NewReleasesCellViewModel.swift in Sources */,
 				8266228F2A3CD46100EEDBF7 /* SettingsModel.swift in Sources */,
 				8243AB152A34E0AA00DA8595 /* SearchViewController.swift in Sources */,
 				828DA9942A471D5400A3A221 /* RecommendedTrackCollectionViewCell.swift in Sources */,
+				82089F792A4DC41100B12F05 /* FeaturedPlaylistCellViewModel.swift in Sources */,
 				8243AB232A34E79000DA8595 /* AuthManager.swift in Sources */,
 				8243AB102A34E08200DA8595 /* PlayListViewController.swift in Sources */,
 				821C019B2A40C0FD00AF1DC6 /* RecommendedGenresResponse.swift in Sources */,
@@ -383,6 +394,7 @@
 				8243AB312A350B1900DA8595 /* Constant.swift in Sources */,
 				8243AB332A350FAD00DA8595 /* Extension.swift in Sources */,
 				828DA9922A471D1900A3A221 /* FeaturedPlaylistCollectionViewCell.swift in Sources */,
+				82089F7B2A4DC47B00B12F05 /* RecomendedTrackCellVİewModel.swift in Sources */,
 				8243AB0E2A34E07000DA8595 /* ProfileViewController.swift in Sources */,
 				828DA9902A471CC300A3A221 /* NewReleasesCollectionViewCell.swift in Sources */,
 				8243AAEC2A34DE9F00DA8595 /* SceneDelegate.swift in Sources */,
