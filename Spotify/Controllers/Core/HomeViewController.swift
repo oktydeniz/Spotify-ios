@@ -15,6 +15,10 @@ enum BrowsSectionType{
 
 class HomeViewController: UIViewController {
 
+    private var newAlbums:[Album] = []
+    private var tracks:[AudioTrack] = []
+    private var playlist:[PlayList] = []
+    
     private var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewCompositionalLayout{
         sectionIndex, _ -> NSCollectionLayoutSection? in
         return HomeViewController.createSectionLayout(section: sectionIndex)
@@ -133,6 +137,10 @@ class HomeViewController: UIViewController {
     }
     
     private func configureModels(newAlbums:[Album], tracks:[AudioTrack], playlist:[PlayList]) {
+        
+        self.newAlbums = newAlbums
+        self.tracks = tracks
+        self.playlist = playlist
         // Configure Models
         sections.append(.newReleases(viewModels:newAlbums.compactMap({
             return NewReleasesCellViewModel(name: $0.name, artworkUrl: URL(string: $0.images.first?.url ?? ""), numberOfTracks: $0.total_tracks, artistName: $0.artists.first?.name ?? "-")
@@ -143,7 +151,7 @@ class HomeViewController: UIViewController {
         })))
         
         sections.append(.recomantationTracks(viewModels: tracks.compactMap({
-            return RecomendedTrackCellVİewModel(name: $0.name, artistName: $0.artists.first?.name ?? "", artworkURL: URL(string: $0.album.images.first?.url ?? ""))
+            return RecomendedTrackCellVİewModel(name: $0.name, artistName: $0.artists.first?.name ?? "", artworkURL: URL(string: $0.album?.images.first?.url ?? ""))
         })))
         collectionView.reloadData()
     }
@@ -169,6 +177,31 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return viewModels.count
         case .recomantationTracks(let viewModels):
             return viewModels.count
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let section = sections[indexPath.section]
+        switch section {
+            
+        case .featuredPlaylist:
+            let playList = playlist[indexPath.row]
+            let vc = PlayListViewController(playlist: playList)
+            vc.title = playList.name
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
+            break
+        case .newReleases:
+            let album = newAlbums[indexPath.row]
+            let vc = AlbumViewController(album: album)
+            vc.title = album.name
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
+            break
+        case .recomantationTracks:
+            break
+            
         }
     }
     

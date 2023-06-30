@@ -8,22 +8,32 @@
 import UIKit
 
 class PlayListViewController: UIViewController {
+        private let playlist: PlayList
+        
+        init(playlist:PlayList) {
+            self.playlist = playlist
+            super.init(nibName: nil, bundle: nil)
+        }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            title = playlist.name
+            view.backgroundColor = .secondarySystemBackground
+            
+            APICaller.shared.getPlaylistDetails(for: playlist) { result in 
+                DispatchQueue.main.async {
+                    switch (result) {
+                    case .success(let model):
+                        break
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError()
+        }
 
-        // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
