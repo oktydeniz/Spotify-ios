@@ -7,9 +7,13 @@
 
 import UIKit
 
+protocol PlaylistHeaderCollectionReusableViewDelegate: AnyObject {
+    func playlistHeaderCollectionReusableViewDidTapPlayAll(_ header: PlaylistHeaderCollectionReusableView)
+}
+
 final class PlaylistHeaderCollectionReusableView: UICollectionReusableView {
     static let identifier = "PlaylistHeaderCollectionReusableView"
-    
+    weak var delegate: PlaylistHeaderCollectionReusableViewDelegate?
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 22, weight: .semibold)
@@ -42,15 +46,16 @@ final class PlaylistHeaderCollectionReusableView: UICollectionReusableView {
         let button = UIButton()
         button.backgroundColor = .systemGreen
         button.tintColor = .white
-        button.setImage(UIImage(systemName: "play.fill"), for: .normal)
-        button.layer.cornerRadius = 25
+        let image = UIImage(systemName: "play.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30, weight: .regular))
+        button.setImage(image, for: .normal)
+        button.layer.cornerRadius = 30
         button.layer.masksToBounds = true
         return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .lightGray
+        backgroundColor = .secondarySystemBackground
         addSubview(imageView)
         addSubview(nameLabel)
         addSubview(desctiptionLabel)
@@ -60,7 +65,7 @@ final class PlaylistHeaderCollectionReusableView: UICollectionReusableView {
     }
     
     @objc private func didTapPlayAll () {
-        
+        self.delegate?.playlistHeaderCollectionReusableViewDidTapPlayAll(self)
     }
     
     required init?(coder: NSCoder) {
@@ -75,7 +80,7 @@ final class PlaylistHeaderCollectionReusableView: UICollectionReusableView {
         nameLabel.frame = CGRect(x: 10, y: imageView.bottom, width: width-20, height: 44)
         desctiptionLabel.frame = CGRect(x: 10, y: nameLabel.bottom, width: width-20, height: 44)
         ownerLabel.frame = CGRect(x: 10, y: desctiptionLabel.bottom, width: width-20, height: 44)
-        playAllButton.frame = CGRect(x: width - 100, y: height - 100, width: 50, height: 50)
+        playAllButton.frame = CGRect(x: width - 80, y: height - 80, width: 60, height: 60)
     }
     
     func configure(with viewModel: PlaylistHeaderViewModel) {
