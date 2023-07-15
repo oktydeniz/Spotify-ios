@@ -163,4 +163,44 @@ final class APICaller {
         }
     }
     
+    // MARK: - Category
+    
+    public func getCategories(completion: @escaping (Result<[Category], Error>) -> Void) {
+        createRequest(with:  URL(string: Constant.baseAPIURL + "/browse/categories?limit=50"), type: .GET) { request in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                guard let response = data, error == nil else {
+                    completion(.failure(APIERROR.faileedToGetData))
+                    return
+                }
+                do {
+                    let json = try JSONDecoder().decode(AllCategoryResponse.self, from: response)
+                    completion(.success(json.categories.items))
+                } catch {
+                    completion(.failure(error))
+                }
+                
+            }
+            task.resume()
+        }
+    }
+    
+    public func getCategoryPlaylist(category: Category ,completion: @escaping (Result<[PlayList], Error>) -> Void) {
+        createRequest(with:  URL(string: Constant.baseAPIURL + "/browse/categories/\(category.id)/playlists?limit=50"), type: .GET) { request in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                guard let response = data, error == nil else {
+                    completion(.failure(APIERROR.faileedToGetData))
+                    return
+                }
+                do {
+                    let json = try JSONDecoder().decode(CategoryPlaylistResponse.self, from: response)
+                    let pList = json.playlists.items
+                    completion(.success(pList))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
 }

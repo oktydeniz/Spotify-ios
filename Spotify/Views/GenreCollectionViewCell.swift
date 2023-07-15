@@ -1,14 +1,15 @@
 //
-//  GenreCollectionViewCell.swift
+//  CategoryCollectionViewCell.swift
 //  Spotify
 //
 //  Created by oktay on 9.07.2023.
 //
 
 import UIKit
+import SDWebImage
 
-class GenreCollectionViewCell: UICollectionViewCell {
-    static let identifier = "GenreCollectionViewCell"
+class CategoryCollectionViewCell: UICollectionViewCell {
+    static let identifier = "CategoryCollectionViewCell"
     
     
     private let colors:[UIColor] = [
@@ -35,7 +36,7 @@ class GenreCollectionViewCell: UICollectionViewCell {
     private let label : UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .systemFont(ofSize: 22, weight: .semibold)
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
         return label
     }()
     
@@ -53,16 +54,18 @@ class GenreCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         label.text = nil
+        imageView.image = UIImage(systemName: "music.quarternote.3", withConfiguration: UIImage.SymbolConfiguration(pointSize: 50, weight: .regular))
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         label.frame = CGRect(x: 10, y: contentView.height/2, width: contentView.width - 20, height: contentView.height/2)
-        imageView.frame = CGRect(x: contentView.width/2, y: 0, width: contentView.width/2, height: contentView.height / 2)
+        imageView.frame = CGRect(x: contentView.width/2, y: 10, width: contentView.width/2, height: contentView.height / 2)
     }
     
-    func configure(str: String){
-        label.text = str
+    func configure(model: CatetoryCollectionViewCellViewModel){
+        label.text = model.title
+        imageView.sd_setImage(with: model.artworkUrl, completed: nil)
         contentView.backgroundColor = colors.randomElement()
     }
 }
