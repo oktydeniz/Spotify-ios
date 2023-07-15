@@ -41,6 +41,7 @@ class SearchViewController: UIViewController, UISearchResultsUpdating {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
         view.addSubview(collectionView)
         collectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
@@ -66,16 +67,12 @@ class SearchViewController: UIViewController, UISearchResultsUpdating {
     }
     
     func updateSearchResults(for searchController: UISearchController) {
-        guard let resultsController = searchController.searchResultsController as? SearchResultViewController, let query = searchController.searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else {
-            return
-        }
-        
-        print(query)
+
     }
 
 }
 
-extension SearchViewController:UICollectionViewDataSource, UICollectionViewDelegate {
+extension SearchViewController:UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, SearchResultViewControllerDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell else {return UICollectionViewCell()}
         let category = categories[indexPath.row]
@@ -96,5 +93,40 @@ extension SearchViewController:UICollectionViewDataSource, UICollectionViewDeleg
         let vc = CategoryViewController(category: category)
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let resultsController = searchController.searchResultsController as? SearchResultViewController, let query = searchBar.text, !query.trimmingCharacters(in: .whitespaces).isEmpty else {
+            return
+        }
+        resultsController.delegate = self
+        
+        APICaller.shared.search(with: query) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let model):
+                    resultsController.update(with: model)
+                }
+            }
+            
+        }
+    }
+
+    func didTapResult(_ result: SearchResult) {
+        switch result {
+            case .artist(let model):
+            break
+            case .album(let model):
+            let vc = AlbumViewController(album: model)
+            vc.navigationItem.largeTitleDisplayMode = .never
+            vc.navigationController?.pushViewController(vc, animated: true)
+            case .playlist(let model):
+            let vc = PlayListViewController(playlist: model)
+            vc.navigationItem.largeTitleDisplayMode = .never
+            vc.navigationController?.pushViewController(vc, animated: true)
+            case .track(let model):
+            break
+        }
     }
 }

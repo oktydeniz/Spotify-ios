@@ -13,6 +13,8 @@
 		82089F7D2A4F212A00B12F05 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82089F7C2A4F212A00B12F05 /* AlbumViewController.swift */; };
 		82089F7F2A4F25A500B12F05 /* AlbumDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82089F7E2A4F25A500B12F05 /* AlbumDetailsResponse.swift */; };
 		82089F812A4F29E800B12F05 /* PlaylistDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82089F802A4F29E800B12F05 /* PlaylistDetailResponse.swift */; };
+		820A9FAC2A632F2D00A839D8 /* SearchResultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820A9FAB2A632F2D00A839D8 /* SearchResultResponse.swift */; };
+		820A9FAE2A6330C000A839D8 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820A9FAD2A6330C000A839D8 /* SearchResult.swift */; };
 		821C01952A40B69700AF1DC6 /* NewReleasesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821C01942A40B69700AF1DC6 /* NewReleasesResponse.swift */; };
 		821C01972A40B7D600AF1DC6 /* APIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821C01962A40B7D600AF1DC6 /* APIImage.swift */; };
 		821C01992A40BD0000AF1DC6 /* FeaturedPlaylistResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821C01982A40BD0000AF1DC6 /* FeaturedPlaylistResponse.swift */; };
@@ -67,6 +69,8 @@
 		82089F7C2A4F212A00B12F05 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		82089F7E2A4F25A500B12F05 /* AlbumDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailsResponse.swift; sourceTree = "<group>"; };
 		82089F802A4F29E800B12F05 /* PlaylistDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailResponse.swift; sourceTree = "<group>"; };
+		820A9FAB2A632F2D00A839D8 /* SearchResultResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultResponse.swift; sourceTree = "<group>"; };
+		820A9FAD2A6330C000A839D8 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		821C01942A40B69700AF1DC6 /* NewReleasesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReleasesResponse.swift; sourceTree = "<group>"; };
 		821C01962A40B7D600AF1DC6 /* APIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIImage.swift; sourceTree = "<group>"; };
 		821C01982A40BD0000AF1DC6 /* FeaturedPlaylistResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlaylistResponse.swift; sourceTree = "<group>"; };
@@ -204,6 +208,8 @@
 				82089F7E2A4F25A500B12F05 /* AlbumDetailsResponse.swift */,
 				82089F802A4F29E800B12F05 /* PlaylistDetailResponse.swift */,
 				82BDBCD02A627723009D178F /* AllCategoryResponse.swift */,
+				820A9FAB2A632F2D00A839D8 /* SearchResultResponse.swift */,
+				820A9FAD2A6330C000A839D8 /* SearchResult.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -442,11 +448,13 @@
 				8243AB0E2A34E07000DA8595 /* ProfileViewController.swift in Sources */,
 				828DA9902A471CC300A3A221 /* NewReleasesCollectionViewCell.swift in Sources */,
 				825DD8612A50C4EC003FFFC4 /* PlaylistHeaderViewModel.swift in Sources */,
+				820A9FAE2A6330C000A839D8 /* SearchResult.swift in Sources */,
 				8243AAEC2A34DE9F00DA8595 /* SceneDelegate.swift in Sources */,
 				82618AF92A5B06FF0068A7EF /* AlbumTrackCollectionViewCell.swift in Sources */,
 				8243AB1F2A34E72300DA8595 /* LibraryViewController.swift in Sources */,
 				8243AB212A34E76D00DA8595 /* SearchResultViewController.swift in Sources */,
 				82BDBCD12A627723009D178F /* AllCategoryResponse.swift in Sources */,
+				820A9FAC2A632F2D00A839D8 /* SearchResultResponse.swift in Sources */,
 				821C01992A40BD0000AF1DC6 /* FeaturedPlaylistResponse.swift in Sources */,
 				8243AB252A34E7A300DA8595 /* APICaller.swift in Sources */,
 				82BDBCD62A627F73009D178F /* CategoryViewController.swift in Sources */,
