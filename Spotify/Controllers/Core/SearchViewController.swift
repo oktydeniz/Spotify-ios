@@ -35,7 +35,7 @@ class SearchViewController: UIViewController, UISearchResultsUpdating {
             return NSCollectionLayoutSection(group: group)
             
         }))
-    // MARK -Lifecycle
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,13 +118,13 @@ extension SearchViewController:UICollectionViewDataSource, UICollectionViewDeleg
             case .artist(let model):
             break
             case .album(let model):
-            let vc = AlbumViewController(album: model)
-            vc.navigationItem.largeTitleDisplayMode = .never
-            vc.navigationController?.pushViewController(vc, animated: true)
+                let vc = AlbumViewController(album: model)
+                vc.navigationItem.largeTitleDisplayMode = .never
+                navigationController?.pushViewController(vc, animated: true)
             case .playlist(let model):
-            let vc = PlayListViewController(playlist: model)
-            vc.navigationItem.largeTitleDisplayMode = .never
-            vc.navigationController?.pushViewController(vc, animated: true)
+                let vc = PlayListViewController(playlist: model)
+                vc.navigationItem.largeTitleDisplayMode = .never
+                navigationController?.pushViewController(vc, animated: true)
             case .track(let model):
             break
         }
