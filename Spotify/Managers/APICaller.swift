@@ -236,4 +236,64 @@ final class APICaller {
             task.resume()
         }
     }
+    // MARK: - Playlist
+    
+    public func getCurrentUserPlaylist(completion: @escaping (Result<[PlayList], Error>) -> Void){
+        createRequest(with: URL(string: Constant.baseAPIURL + "/me/playlists?limit=50"), type: .GET) { request in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                guard let response = data, error == nil else {
+                    completion(.failure(APIERROR.faileedToGetData))
+                    return
+                }
+                do {
+                    let json = try JSONDecoder().decode(LibraryPlaylistResponse.self, from: response)
+                    completion(.success(json.items))
+                }catch {
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    public func createPlaylist(with name:String, completion: @escaping (Bool) -> Void){
+        getCurrentUserProfile(complation: { [weak self] result in
+            switch result {
+            case.success(let profile):
+                let urlString = Constant.baseAPIURL + "/users/\(profile.id)/playlists"
+                self?.createRequest(with: URL(string: urlString), type: .POST) { baseRequest in
+                    var request = baseRequest
+                    let json = ["name": name]
+                    request.httpBody = try? JSONSerialization.data(withJSONObject: json, options: .fragmentsAllowed)
+                    let task = URLSession.shared.dataTask(with: request) { data , _ , error in
+                        guard let response = data, error == nil else { completion(false); return }
+                        do {
+                            let json = try JSONSerialization.jsonObject(with: response, options: .allowFragments)
+                            if let response = json as? [String: Any], response["id"] as? String != nil {
+                                completion(true)
+                                print("Created")
+                            } else {
+                                completion(false)
+                                print("Failed to get id")
+                            }
+                        } catch {
+                            print(error.localizedDescription)
+                            completion(false)
+                        }
+                    }
+                    task.resume()
+                }
+            case .failure(let error): print(error.localizedDescription)
+            }
+        })
+    }
+    
+    public func addTrackToPlaylist(track: AudioTrack, playlist:PlayList, completion: @escaping (Bool) -> Void) {
+        
+    }
+    
+    public func removeTrackFromPlaylist(track: AudioTrack, playlist:PlayList, completion: @escaping (Bool) -> Void) {
+        
+    }
+    
 }
