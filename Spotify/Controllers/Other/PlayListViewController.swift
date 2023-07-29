@@ -12,6 +12,7 @@ class PlayListViewController: UIViewController {
     private var viewModels = [RecomendedTrackCellVİewModel]()
     private let playlist: PlayList
     private  var tracks  = [AudioTrack]()
+    public var isOwner = false
     private let collectionView = UICollectionView(frame: .zero,
                                                   collectionViewLayout: UICollectionViewCompositionalLayout(
                                                     sectionProvider: { _, _ -> NSCollectionLayoutSection? in
@@ -26,8 +27,8 @@ class PlayListViewController: UIViewController {
                                                             NSCollectionLayoutBoundarySupplementaryItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
                                                         ]
                                                         return section
-      }
-    ))
+                                                    }
+                                                  ))
     
     
     init(playlist:PlayList) {
@@ -60,12 +61,42 @@ class PlayListViewController: UIViewController {
                 }
             }
         }
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
+        collectionView.addGestureRecognizer(gesture)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShare))
+    }
+    
+    @objc func didLongPress(_ gesture:UILongPressGestureRecognizer) {
+        guard gesture.state == .began else {return}
+        let touchPoint = gesture.location(in: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: touchPoint) else {return}
+        
+        let trackToDelete = tracks[indexPath.row]
+        
+        let actionSheet = UIAlertController(title: trackToDelete.name, message: "Would you like to remove this from th playlist?", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Remove", style: .destructive) { [weak self] _ in
+            guard let strongSelf = self else {return }
+            APICaller.shared.removeTrackFromPlaylist(track: trackToDelete, playlist: strongSelf.playlist, completion: { success in
+                DispatchQueue.main.async {
+                    if success {
+                        print("Removed")
+                        strongSelf.tracks.remove(at: indexPath.row)
+                        strongSelf.viewModels.remove(at: indexPath.row)
+                        strongSelf.collectionView.reloadData()
+                    } else {
+                        print("Faild to Remove")
+                    }
+                }
+            } )
+        })
+        present(actionSheet, animated: true, completion: nil)
+        
     }
     
     @objc private func didTapShare() {
         guard let url = URL(string: playlist.external_urls["spotify"] ?? "") else {return}
-       let vc = UIActivityViewController(activityItems: [url], applicationActivities: [])
+        let vc = UIActivityViewController(activityItems: [url], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(vc, animated: true)
     }
