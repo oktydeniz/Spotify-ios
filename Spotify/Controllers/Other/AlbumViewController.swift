@@ -45,6 +45,26 @@ class AlbumViewController: UIViewController {
         collectionView.register(AlbumTrackCollectionViewCell.self, forCellWithReuseIdentifier: AlbumTrackCollectionViewCell.identifier)
         collectionView.backgroundColor = .secondarySystemBackground
         
+        fetchData()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTabAlcitons))
+    }
+    
+    @objc func didTabAlcitons() {
+        let action = UIAlertController(title: album.name, message: "Actions", preferredStyle: .actionSheet)
+        action.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        action.addAction(UIAlertAction(title: "Save Action", style: .default, handler: {
+           [weak self] _ in
+            guard let strongSelf = self else {return}
+            APICaller.shared.saveAlbum(album: strongSelf.album){ result in
+                if result {
+                    NotificationCenter.default.post(name: .albumSavedNotification, object: nil)
+                }
+            }
+        }))
+        present(action, animated: true)
+    }
+    
+    private func fetchData() {
         APICaller.shared.getAlbumsDetails(for: album) {[weak self] result in
             DispatchQueue.main.async {
                 switch (result) {
