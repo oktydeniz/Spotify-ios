@@ -27,7 +27,7 @@ class LibraryAlbumsViewController: UIViewController {
         view.addSubview(tableView)
         setUpAlbumView()
         fetchData()
-        observer = NotificationCenter.default.addObserver(forName: .albumSavedNotification, object: nil, queue: .main, using: { [weak self] _ in 
+        observer = NotificationCenter.default.addObserver(forName: .albumSavedNotification, object: nil, queue: .main, using: { [weak self] _ in
             self?.fetchData()
         })
    
@@ -104,6 +104,7 @@ extension LibraryAlbumsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        HapticsManager.shared.vibratareForSelection()
         let _album = album[indexPath.row]
         let vc = AlbumViewController(album: _album)
         vc.navigationItem.largeTitleDisplayMode = .never

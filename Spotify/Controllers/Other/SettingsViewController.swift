@@ -44,7 +44,24 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func signOut() {
-        
+        let alert = UIAlertController(title: "Sing out", message: "Are you sure?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { _ in
+            AuthManager.shared.singOut { [weak self] success in
+                if success {
+                    DispatchQueue.main.async {
+                        let navVC = UINavigationController(rootViewController: WelcomeViewController())
+                        navVC.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
+                        navVC.navigationBar.prefersLargeTitles = true
+                        navVC.modalPresentationStyle = .fullScreen
+                        self?.present(navVC, animated: true, completion: {
+                            self?.navigationController?.popToRootViewController(animated: true)
+                        })
+                    }
+                }
+            }
+        }))
+        present(alert, animated: true)
     }
     
     override func viewDidLoad() {
